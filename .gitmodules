@@ -1,0 +1,3 @@
+[submodule "ansible-k8s"]
+	path = ansible-k8s
+	url = https://github.com/kaitoy/ansible-k8s.git

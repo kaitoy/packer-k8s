@@ -1,0 +1,2 @@
+k8s__advertise_address: 10.0.2.15
+k8s__service_cluster_ip_range: 10.10.0.0/16
