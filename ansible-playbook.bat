@@ -26,4 +26,4 @@ for %%f in (%*) do (
 )
 
 echo args: %args%
-python C:\msys64\usr\bin\ansible-playbook -v %args%
+C:\msys64\usr\bin\python.exe C:\msys64\usr\bin\ansible-playbook -v %args%
