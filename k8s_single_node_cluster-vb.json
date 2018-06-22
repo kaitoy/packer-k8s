@@ -65,7 +65,7 @@
       "boot_command": [
         "<up><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
       ],
-      "boot_wait": "20s",
+      "boot_wait": "15s",
       "output_directory": "builds/packer-{{ user `vm_name` }}-virtualbox",
       "export_opts": [
         "--manifest",
