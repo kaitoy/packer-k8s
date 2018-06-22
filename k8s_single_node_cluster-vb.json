@@ -84,7 +84,8 @@
     {
       "type": "shell",
       "scripts": [
-        "scripts/virtualbox.sh"
+        "scripts/virtualbox.sh",
+        "scripts/cleanup.sh"
       ]
     },
     {
