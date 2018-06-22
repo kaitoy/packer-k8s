@@ -82,13 +82,6 @@
   ],
   "provisioners": [
     {
-      "type": "shell",
-      "scripts": [
-        "scripts/virtualbox.sh",
-        "scripts/cleanup.sh"
-      ]
-    },
-    {
       "type": "ansible",
       "playbook_file": "ansible-k8s/k8s_single_node_cluster.yml",
       "inventory_file": "./ansible_inventory",
@@ -101,6 +94,14 @@
         "--extra-vars", "'@extra_vars.yml'"
       ],
       "sftp_command": "/usr/lib/ssh/sftp-server -e"
+    },
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/virtualbox.sh",
+        "scripts/cleanup.sh",
+        "bento/_common/minimize.sh"
+      ]
     }
   ],
   "post-processors": [
