@@ -1,4 +1,5 @@
 {
+  "name": "k8s-single-node-cluster",
   "vm_name": "k8s-master",
   "vm_description": "Single Node Kubernetes Cluster",
   "vm_version": "1.0.0",
@@ -12,5 +13,7 @@
   "guest_additions_sha256": "01a77500df9127d8d6aa27c7d784af8f773d8e84b2b252c9e866b9038ed8bd43",
   "cpus": "2",
   "memory": "6144",
-  "disk_size": "40000"
+  "disk_size": "40000",
+  "vm_ssh_username": "root",
+  "vm_ssh_password": "hitachi"
 }

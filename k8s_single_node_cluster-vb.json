@@ -1,7 +1,6 @@
 {
   "builders": [
     {
-      "name": "k8s-single-node-cluster",
       "type": "virtualbox-iso",
       "guest_os_type": "Oracle_64",
       "iso_urls": [
@@ -11,8 +10,8 @@
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
       "communicator": "ssh",
       "ssh_timeout": "1000s",
-      "ssh_username": "root",
-      "ssh_password": "hitachi",
+      "ssh_username": "{{ user `vm_ssh_username` }}",
+      "ssh_password": "{{ user `vm_ssh_password` }}",
       "shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
       "vboxmanage": [
         [
