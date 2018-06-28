@@ -1,0 +1,68 @@
+{
+  "builders": [
+    {
+      "type": "vmware-iso",
+      "guest_os_type": "oraclelinux-64",
+      "iso_urls": [
+        "{{ user `iso_url` }}"
+      ],
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "cdrom_adapter_type": "ide",
+      "communicator": "ssh",
+      "ssh_timeout": "10000s",
+      "ssh_username": "{{ user `vm_ssh_username` }}",
+      "ssh_password": "{{ user `vm_ssh_password` }}",
+      "vnc_disable_password": "true",
+      "shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
+      "remote_type": "esx5",
+      "remote_host": "{{ user `esx_host` }}",
+      "remote_port": "{{ user `esx_ssh_port` }}",
+      "remote_username": "{{ user `esx_username` }}",
+      "remote_password": "{{ user `esx_password` }}",
+      "vmx_data": {
+        "memSize": "{{ user `memory` }}",
+        "numvcpus": "{{ user `cpus` }}",
+        "ethernet0.present": "true",
+        "ethernet0.startConnected": "true",
+        "ethernet0.virtualDev": "e1000",
+        "ethernet0.networkName": "VM Network"
+      },
+      "vm_name": "{{ user `vm_name` }}",
+      "disk_size": "{{ user `disk_size` }}",
+      "disk_type_id": "thin",
+      "headless": true,
+      "http_directory": "http",
+      "boot_command": [
+        "<up><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks_esx.cfg<enter><wait>"
+      ],
+      "boot_wait": "260s",
+      "output_directory": "builds/packer-{{ user `vm_name` }}-esx",
+      "format": "ova"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible",
+      "playbook_file": "ansible-k8s/k8s_single_node_cluster.yml",
+      "inventory_file": "./ansible_inventory_esx",
+      "ansible_env_vars": [
+        "ANSIBLE_HOST_KEY_CHECKING=False",
+        "ANSIBLE_SSH_ARGS='-o ControlMaster=no -o ControlPersist=60s'",
+        "ANSIBLE_NOCOLOR=True"
+      ],
+      "extra_arguments": [
+        "--extra-vars", "'@extra_vars_esx.yml'"
+      ],
+      "sftp_command": "/usr/lib/ssh/sftp-server -e"
+    },
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/virtualbox.sh",
+        "scripts/cleanup.sh",
+        "bento/_common/minimize.sh"
+      ]
+    }
+  ]
+}

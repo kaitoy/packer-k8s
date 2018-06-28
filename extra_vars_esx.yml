@@ -1,0 +1,5 @@
+k8s__advertise_address: 192.168.171.100
+k8s__service_cluster_ip_range: 10.10.0.0/16
+
+base__reboot_polling_delay: 50
+base__reboot_polling_timeout: 400

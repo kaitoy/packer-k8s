@@ -1,0 +1,8 @@
+k8s:
+  hosts:
+    k8s_master:
+      ansible_connection: ssh
+      ansible_host: 192.168.171.100
+      ansible_port: 22
+      ansible_user: root
+      ansible_ssh_pass: hitachi

@@ -21,7 +21,7 @@
 3. Run a build
 
     ```sh
-    # build.sh play.sh
+    # ./build_vb.sh
     ```
 
 The artifacts will be generated in `builds` dir.
