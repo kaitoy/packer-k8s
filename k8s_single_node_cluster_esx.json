@@ -59,7 +59,6 @@
     {
       "type": "shell",
       "scripts": [
-        "scripts/virtualbox.sh",
         "scripts/cleanup.sh",
         "bento/_common/minimize.sh"
       ]
