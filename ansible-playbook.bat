@@ -9,6 +9,9 @@ for %%f in (%*) do (
     set arg=!arg::=!
     set args=!args!=!arg!/%%~nxf
     set key_file=0
+  ) else if !extra_argument! == 1 (
+    set args=!args!=%%f
+    set extra_argument=0
   ) else if %%~xf == .yml (
     rem Convert the passed Playbook path to relative one.
     set arg=%%f
@@ -19,9 +22,18 @@ for %%f in (%*) do (
     rem Add other args as they are
     set args=!args! %%f
   )
+
   if %%f == ansible_ssh_private_key_file (
     rem The next arg will be the value of ansible_ssh_private_key_file
     set key_file=1
+    set extra_argument=0
+  )
+  if !extra_argument! == 2 (
+    set extra_argument=1
+  )
+  if %%f == -e (
+    rem The next 2 args will be an extra argument
+    set extra_argument=2
   )
 )
 
