@@ -4,3 +4,6 @@
 [submodule "bento"]
 	path = bento
 	url = https://github.com/chef/bento.git
+[submodule "ansible-playbook-wrapper"]
+	path = ansible-playbook-wrapper
+	url = https://github.com/kaitoy/ansible-playbook-wrapper.git

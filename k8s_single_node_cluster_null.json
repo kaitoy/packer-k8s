@@ -1,0 +1,36 @@
+{
+  "builders": [
+    {
+      "type": "null",
+      "ssh_host": "127.0.0.1",
+      "ssh_port": "2222",
+      "ssh_username": "root",
+      "ssh_password": "hitachi"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible",
+      "playbook_file": "ansible-k8s/k8s_single_node_cluster.yml",
+      "inventory_file": "./ansible_inventory_vb",
+      "ansible_env_vars": [
+        "ANSIBLE_HOST_KEY_CHECKING=False",
+        "ANSIBLE_SSH_ARGS='-o ControlMaster=no -o ControlPersist=60s'",
+        "ANSIBLE_NOCOLOR=True"
+      ],
+      "extra_arguments": ["--extra-vars", "@extra_vars_vb.yml"],
+      "sftp_command": "/usr/lib/ssh/sftp-server -e"
+    },
+    {
+      "type": "shell",
+      "scripts": ["scripts/virtualbox.sh", "scripts/cleanup.sh", "bento/_common/minimize.sh"]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "output": "builds/k8s-master.box",
+      "keep_input_artifact": true
+    }
+  ]
+}

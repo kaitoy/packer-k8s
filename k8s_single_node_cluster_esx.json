@@ -3,9 +3,7 @@
     {
       "type": "vmware-iso",
       "guest_os_type": "oraclelinux-64",
-      "iso_urls": [
-        "{{ user `iso_url` }}"
-      ],
+      "iso_urls": ["{{ user `iso_url` }}"],
       "iso_checksum": "{{ user `iso_checksum` }}",
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
       "cdrom_adapter_type": "ide",
@@ -51,17 +49,12 @@
         "ANSIBLE_SSH_ARGS='-o ControlMaster=no -o ControlPersist=60s'",
         "ANSIBLE_NOCOLOR=True"
       ],
-      "extra_arguments": [
-        "--extra-vars", "'@extra_vars_esx.yml'"
-      ],
+      "extra_arguments": ["--extra-vars", "@extra_vars_esx.yml"],
       "sftp_command": "/usr/lib/ssh/sftp-server -e"
     },
     {
       "type": "shell",
-      "scripts": [
-        "scripts/cleanup.sh",
-        "bento/_common/minimize.sh"
-      ]
+      "scripts": ["scripts/cleanup.sh", "bento/_common/minimize.sh"]
     }
   ]
 }

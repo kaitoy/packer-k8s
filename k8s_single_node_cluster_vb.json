@@ -3,9 +3,7 @@
     {
       "type": "virtualbox-iso",
       "guest_os_type": "Oracle_64",
-      "iso_urls": [
-        "{{ user `iso_url` }}"
-      ],
+      "iso_urls": ["{{ user `iso_url` }}"],
       "iso_checksum": "{{ user `iso_checksum` }}",
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
       "communicator": "ssh",
@@ -14,42 +12,12 @@
       "ssh_password": "{{ user `vm_ssh_password` }}",
       "shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
       "vboxmanage": [
-        [
-          "modifyvm",
-          "{{ .Name }}",
-          "--memory",
-          "{{ user `memory` }}"
-        ],
-        [
-          "modifyvm",
-          "{{ .Name }}",
-          "--cpus",
-          "{{ user `cpus` }}"
-        ],
-        [
-          "modifyvm",
-          "{{ .Name }}",
-          "--nic1",
-          "nat"
-        ],
-        [
-          "modifyvm",
-          "{{ .Name }}",
-          "--natdnshostresolver1",
-          "on"
-        ],
-        [
-          "modifyvm",
-          "{{ .Name }}",
-          "--natpf1",
-          "SSH,tcp,,2222,,22"
-        ],
-        [
-          "modifyvm",
-          "{{ .Name }}",
-          "--natpf1",
-          "HTTPS,tcp,,443,,443"
-        ]
+        ["modifyvm", "{{ .Name }}", "--memory", "{{ user `memory` }}"],
+        ["modifyvm", "{{ .Name }}", "--cpus", "{{ user `cpus` }}"],
+        ["modifyvm", "{{ .Name }}", "--nic1", "nat"],
+        ["modifyvm", "{{ .Name }}", "--natdnshostresolver1", "on"],
+        ["modifyvm", "{{ .Name }}", "--natpf1", "SSH,tcp,,2222,,22"],
+        ["modifyvm", "{{ .Name }}", "--natpf1", "HTTPS,tcp,,443,,443"]
       ],
       "virtualbox_version_file": ".vbox_version",
       "vm_name": "{{ user `vm_name` }}",
@@ -68,13 +36,19 @@
       "output_directory": "builds/packer-{{ user `vm_name` }}-virtualbox",
       "export_opts": [
         "--manifest",
-        "--vsys", "0",
+        "--vsys",
+        "0",
         "--ovf20",
-        "--product", "{{ user `vm_product `}}",
-        "--producturl", "{{ user `vm_producturl `}}",
-        "--vendor", "{{ user `vm_vendor` }}",
-        "--description", "{{ user `vm_description `}}",
-        "--version", "{{ user `vm_version` }}"
+        "--product",
+        "{{ user `vm_product `}}",
+        "--producturl",
+        "{{ user `vm_producturl `}}",
+        "--vendor",
+        "{{ user `vm_vendor` }}",
+        "--description",
+        "{{ user `vm_description `}}",
+        "--version",
+        "{{ user `vm_version` }}"
       ],
       "format": "ova"
     }
@@ -89,18 +63,12 @@
         "ANSIBLE_SSH_ARGS='-o ControlMaster=no -o ControlPersist=60s'",
         "ANSIBLE_NOCOLOR=True"
       ],
-      "extra_arguments": [
-        "--extra-vars", "'@extra_vars_vb.yml'"
-      ],
+      "extra_arguments": ["--extra-vars", "@extra_vars_vb.yml"],
       "sftp_command": "/usr/lib/ssh/sftp-server -e"
     },
     {
       "type": "shell",
-      "scripts": [
-        "scripts/virtualbox.sh",
-        "scripts/cleanup.sh",
-        "bento/_common/minimize.sh"
-      ]
+      "scripts": ["scripts/virtualbox.sh", "scripts/cleanup.sh", "bento/_common/minimize.sh"]
     }
   ],
   "post-processors": [
